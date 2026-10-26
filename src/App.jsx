@@ -60,6 +60,22 @@ function App() {
         setList(newList);
     }
 
+    const totalIncome = list.reduce((sum, item) => {
+        // type이 income인 것들의 합계
+        // 함수 몸통에 써주는 내용은 하나의 요소가 빠져나온 상태의 식
+        // item은 객체
+        return item.type === "income" ? sum + item.amount : sum;
+
+    }, 0);
+
+    const totalExpense = list.reduce((sum, item) => {
+        // type이 expense인 것들의 합계
+        return item.type === "expense" ? sum + item.amount : sum;
+    }, 0);
+
+    const balance = totalIncome - totalExpense;
+
+
     return (
         <>
             <h2>간단 가계부</h2>
@@ -108,7 +124,7 @@ function App() {
                 {list.length === 0 && (
                     <tr>
                         <td colSpan={4} style={{textAlign: "center"}}>
-                            "등록된 내역이 없습니다."</td>
+                            등록된 내역이 없습니다.</td>
                     </tr>
                 )}
                 {list.map((item, index) => {
@@ -116,7 +132,10 @@ function App() {
                         <tr key={index}>
                             <td>{item.type === "income" ? "수입" : "지출"}</td>
                             <td>{item.title}</td>
-                            <td>
+                            <td style={{
+                                color: item.type === "income" ? "blue" : "red",
+                                borderColor: "black"
+                            }}>
                                 {item.type === "income" ? "+" : "-"}
                                 {item.amount.toLocaleString()}
                             </td>
@@ -133,8 +152,24 @@ function App() {
                 </tbody>
             </table>
 
-            <h3>수입 : 0원 / 지출 : 0원</h3>
-            <h3>잔액 : 0원 </h3>
+            {/*
+                list라고 하는 array(state)를 가지고 하나의 값을 구하는 행위
+                => list.reduce() => 얘의 코드가 길어지겠다 => 상단에 코드를 쓰자
+            */}
+            <h3>
+                수입 :
+                <span style={{
+                    color: totalIncome > 0 ? "blue" : "black"}}>
+                    {totalIncome.toLocaleString()}원</span> /
+                지출 :
+                <span style={{
+                    color: totalIncome > 0 ? "red" : "black"}}>
+                    {totalExpense.toLocaleString()}원</span>
+            </h3>
+            <h3>잔액 :
+                <span style={{
+                    color: balance > 0 ? "blue" : balance < 0 ? "red" : "black"}}>{balance.toLocaleString()}원</span>
+            </h3>
         </>
     );
 }
