@@ -157,19 +157,10 @@ function App() {
                 => list.reduce() => 얘의 코드가 길어지겠다 => 상단에 코드를 쓰자
             */}
             <h3>
-                수입 :
-                <span style={{
-                    color: totalIncome > 0 ? "blue" : "black"}}>
-                    {totalIncome.toLocaleString()}원</span> /
-                지출 :
-                <span style={{
-                    color: totalIncome > 0 ? "red" : "black"}}>
-                    {totalExpense.toLocaleString()}원</span>
+                수입 : <span style={{color: totalIncome > 0 ? "blue" : "black"}}>{totalIncome.toLocaleString()}원 </span>
+                / 지출 : <span style={{color: totalIncome > 0 ? "red" : "black"}}>{totalExpense.toLocaleString()}원</span>
             </h3>
-            <h3>잔액 :
-                <span style={{
-                    color: balance > 0 ? "blue" : balance < 0 ? "red" : "black"}}>{balance.toLocaleString()}원</span>
-            </h3>
+            <h3>잔액 : <span style={{color: balance > 0 ? "blue" : balance < 0 ? "red" : "black"}}>{balance.toLocaleString()}원</span></h3>
         </>
     );
 }
